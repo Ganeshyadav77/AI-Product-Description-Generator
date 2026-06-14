@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI E-commerce Product Description Generator | Smart Product Copywriting</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app-wrapper">
+        <!-- Header Section -->
+        <header class="main-header">
+            <div class="logo-container">
+                <i class="fas fa-rocket"></i>
+                <h1>AI Product Description Generator</h1>
+            </div>
+            <p class="tagline">Generate compelling product descriptions, SEO tags, and keywords in seconds</p>
+        </header>
+
+        <div class="main-grid">
+            <!-- Input Section -->
+            <div class="input-section">
+                <div class="card">
+                    <h2><i class="fas fa-box"></i> Product Information</h2>
+                    
+                    <form id="productForm">
+                        <div class="form-group">
+                            <label><i class="fas fa-tag"></i> Product Name *</label>
+                            <input type="text" id="productName" required placeholder="e.g., UltraBoost Wireless Headphones" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fas fa-layer-group"></i> Category</label>
+                            <select id="category" class="form-control">
+                                <option value="electronics">Electronics & Gadgets</option>
+                                <option value="fashion">Fashion & Apparel</option>
+                                <option value="home">Home & Living</option>
+                                <option value="beauty">Beauty & Personal Care</option>
+                                <option value="sports">Sports & Outdoors</option>
+                                <option value="books">Books & Media</option>
+                                <option value="toys">Toys & Games</option>
+                                <option value="food">Food & Beverages</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fas fa-align-left"></i> Key Features (comma separated)</label>
+                            <textarea id="features" rows="3" placeholder="e.g., Noise cancellation, 30-hour battery life, Bluetooth 5.0, Comfortable fit" class="form-control"></textarea>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><i class="fas fa-dollar-sign"></i> Price (Optional)</label>
+                                <input type="text" id="price" placeholder="e.g., $99.99" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-palette"></i> Color/Variant</label>
+                                <input type="text" id="color" placeholder="e.g., Black, White, Blue" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fas fa-users"></i> Target Audience</label>
+                            <select id="audience" class="form-control">
+                                <option value="general">General Audience</option>
+                                <option value="professionals">Professionals</option>
+                                <option value="students">Students</option>
+                                <option value="parents">Parents</option>
+                                <option value="luxury">Luxury Buyers</option>
+                                <option value="budget">Budget Conscious</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fas fa-chart-line"></i> Writing Style</label>
+                            <div class="style-buttons">
+                                <button type="button" class="style-btn active" data-style="professional">Professional</button>
+                                <button type="button" class="style-btn" data-style="casual">Casual & Friendly</button>
+                                <button type="button" class="style-btn" data-style="luxury">Luxury & Premium</button>
+                                <button type="button" class="style-btn" data-style="humorous">Humorous & Fun</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fas fa-ruler-combined"></i> Description Length</label>
+                            <div class="length-slider">
+                                <input type="range" id="length" min="50" max="300" value="150" step="10">
+                                <span id="lengthValue">150</span> words
+                            </div>
+                        </div>
+
+                        <button type="submit" class="generate-btn">
+                            <i class="fas fa-magic"></i> Generate AI Content
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Quick Templates -->
+                <div class="card templates-card">
+                    <h3><i class="fas fa-fire"></i> Popular Templates</h3>
+                    <div class="templates-grid">
+                        <button class="template-btn" onclick="loadTemplate('headphones')">
+                            <i class="fas fa-headphones"></i> Headphones
+                        </button>
+                        <button class="template-btn" onclick="loadTemplate('smartwatch')">
+                            <i class="fas fa-clock"></i> Smartwatch
+                        </button>
+                        <button class="template-btn" onclick="loadTemplate('tshirt')">
+                            <i class="fas fa-tshirt"></i> T-Shirt
+                        </button>
+                        <button class="template-btn" onclick="loadTemplate('lamp')">
+                            <i class="fas fa-lamp"></i> Smart Lamp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Output Section -->
+            <div class="output-section">
+                <!-- Product Description -->
+                <div class="card result-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-file-alt"></i> Product Description</h2>
+                        <button class="copy-btn" onclick="copyToClipboard('description')">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    <div id="descriptionOutput" class="description-output">
+                        <div class="placeholder">
+                            <i class="fas fa-magic"></i>
+                            <p>Enter product details and click "Generate AI Content"</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SEO Keywords -->
+                <div class="card result-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-chart-line"></i> SEO Keywords</h2>
+                        <button class="copy-btn" onclick="copyToClipboard('keywords')">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    <div id="keywordsOutput" class="keywords-output">
+                        <div class="placeholder">
+                            <i class="fas fa-chart-line"></i>
+                            <p>SEO keywords will appear here</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Tags -->
+                <div class="card result-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-tags"></i> Product Tags</h2>
+                        <button class="copy-btn" onclick="copyToClipboard('tags')">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    <div id="tagsOutput" class="tags-output">
+                        <div class="placeholder">
+                            <i class="fas fa-tags"></i>
+                            <p>Product tags will appear here</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional SEO Meta -->
+                <div class="card result-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-search"></i> SEO Meta Information</h2>
+                        <button class="copy-btn" onclick="copyToClipboard('meta')">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    <div id="metaOutput" class="meta-output">
+                        <div class="placeholder">
+                            <i class="fas fa-search"></i>
+                            <p>SEO meta title and description will appear here</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Social Media Copy -->
+                <div class="card result-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-share-alt"></i> Sociadsl Media Copy</h2>
+                        <button class="copy-btn" onclick="copyToClipboard('social')">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    <div id="socialOutput" class="social-output">
+                        <div class="placeholder">
+                            <i class="fas fa-share-alt"></i>
+                            <p>Social media posts will appear here</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p><i class="fas fa-rocket"></i> AI-Powered Product Description Generator | Optimized for E-commerce Success </p>
+            <p2> BY GNYD </p2>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
